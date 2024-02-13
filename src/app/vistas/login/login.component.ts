@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/services/api/api.service';
 import { Router } from '@angular/router';
 
@@ -8,24 +8,23 @@ import { Router } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+
+export class LoginComponent implements OnInit {
+  usuario: any;
+  errorMessage: string = '';
+
+  constructor(private apiService: ApiService, private router: Router) { }
 
   ngOnInit(): void {
     this.checkLocalStorage();
   }
 
-
-  checkLocalStorage(){
-    if(localStorage.getItem('token')){
-      this.router.navigate(['main']);
+  checkLocalStorage() {
+    const token = localStorage.getItem('token');
+    if (token) {
+      this.router.navigate(['main']); // Si hay un token, redirigir a la página principal
     }
   }
-
-
-
-
-  constructor(private apiService: ApiService, private router:Router) { }
-  errorMessage: string = '';
 
   login(username: string, password: string) {
     this.apiService.login(username, password).subscribe(
@@ -33,17 +32,14 @@ export class LoginComponent {
         console.log(response);
         if (response.token) {
           localStorage.setItem('token', response.token);
-          this.router.navigate(['main'])
+          this.router.navigate(['main']); // Redirigir a la página principal después del inicio de sesión exitoso
         }
       },
       error => {
-        // error
         console.error(error);
         if (error.error && error.error.message === "Authentication Problem") {
-          //si el error es específico de autenticación, mostrar un mensaje al usuario
           this.errorMessage = 'Problema de autenticación: Usuario o contraseña incorrectos.';
         } else {
-          
           this.errorMessage = 'Se produjo un error al intentar iniciar sesión. Por favor, inténtalo de nuevo más tarde.';
         }
       }

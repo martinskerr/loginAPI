@@ -1,1 +1,27 @@
-<p>main works!</p>
+<app-header></app-header>
+
+<div class="container mt-5" *ngIf="usuario">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-6">
+                <h5 class="card-title">Información del Usuario</h5>
+                <p class="card-text"><strong>Username:</strong> {{ usuario.username }}</p>
+                <p class="card-text"><strong>Email:</strong> {{ usuario.email }}</p>
+                <p class="card-text"><strong>Nombre:</strong> {{ usuario.firstName }}</p>
+                <p class="card-text"><strong>Apellido:</strong> {{ usuario.lastName }}</p>
+                <p class="card-text"><strong>Género:</strong> {{ usuario.gender }}</p>
+              </div>
+              <div class="col-md-6">
+                <img src="{{ usuario.image }}" alt="Imagen de usuario" class="img-fluid rounded-circle">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<app-footer></app-footer>
