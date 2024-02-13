@@ -7,19 +7,26 @@
 
                         <h3 class="mb-3 text-center">Ingresa Sesion</h3>
 
-                        <form form-group [formGroup]="loginForm" (ngSubmit)="onLogin(loginForm.value)" class="text-center">
+                        <form (ngSubmit)="login(username.value, password.value)"  class="text-center mb-3">
                             <div class="form-group mb-3">   
                                 <label for="usuarioForm" class="form-label">Usuario</label>                            
-                                <input type="text" id="usuarioForm" class="form-control form-control-lg" placeholder="usuario" formControlName="usuario" />
+                                <input type="text" id="usuarioForm" class="form-control form-control-lg" placeholder="usuario" #username />
                             </div>
 
                             <div class="form-group mb-3">
                                 <label for="typePassword" class="form-label">Contraseña</label>  
-                                <input type="password" id="typePassword" class="form-control form-control-lg" placeholder="contraseña" formControlName="password" />
+                                <input type="password" id="typePassword" class="form-control form-control-lg" placeholder="contraseña" #password />
                             </div>
 
                             <button class="btn btn-primary btn-lg btn-block" type="submit">Ingresar</button>
                         </form>
+
+                        <div *ngIf="errorMessage" class=" alert alert-danger error-message">
+                            <span>
+                                {{ errorMessage }}   
+                            </span>
+
+                        </div>
 
                     </div>
                 </div>

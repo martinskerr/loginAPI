@@ -1,6 +1,4 @@
 import { Injectable } from '@angular/core';
-import { LoginI } from 'src/app/modelos/login.interface';
-import { ResponseI } from 'src/app/modelos/response.interface';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
@@ -8,7 +6,11 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class ApiService {
 
-  url:string = "https://dummyjson.com/auth/login"
+  private apiUrl = 'https://dummyjson.com/auth/login';
 
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) { }
+
+  login(username: string, password: string) {
+    return this.http.post<any>(this.apiUrl, { username, password });
+  }
 }
